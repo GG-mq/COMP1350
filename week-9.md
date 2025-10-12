@@ -1,85 +1,199 @@
--- Week -9
--- Task 6:
--- Write an SQL statement that prints the SeasonID and the year the season aired. Use s as the Season table alias.
-select distinct SeasonID, year(AirDate) as 'Season Year'
-from Episode;
 
-select distinct Episode.SeasonID, year(e.AirDate) as 'Season Year'
-from Episode e, Season s
-where e.SeasonID = s.SeasonID; -- join Statement
+# 📘 Week - 9 SQL Practical Tasks
 
--- Observe the result. If it has duplicate results, what keyword should be added to remove identical values? Try the same query using the keyword and check your answer.
+This file contains all SQL writing exactly as provided, formatted and beautified for readability and Markdown clarity.  
+Each task includes the original SQL statements, comments, and notes for understanding.
 
--- Now, change s.SeasonID to SeasonID. What error do you get? What does it mean?
+---
 
--- Task 7:
+## 🧩 Task 6
 
--- Write an SQL statement that prints the ContractIDs and Names of actors. Try different inner join methods to join these tables
+### 📝 Description  
+Write an SQL statement that prints the `SeasonID` and the year the season aired. Use **`s`** as the Season table alias.
 
--- Equi join
-select ContractID, ActorName
-from Contract c, Actor a
-where c.ActorID = a.ActorID;
+---
 
--- Join on clause
+### ✅ Query 1
+```sql
+SELECT DISTINCT SeasonID, YEAR(AirDate) AS 'Season Year'
+FROM Episode;
+````
+
+---
+
+### ✅ Query 2
+
+```sql
+SELECT DISTINCT Episode.SeasonID, YEAR(e.AirDate) AS 'Season Year'
+FROM Episode e, Season s
+WHERE e.SeasonID = s.SeasonID; -- join Statement
+```
+
+---
+
+### 💡 Observation
+
+If the result has duplicate rows, add the **`DISTINCT`** keyword to remove identical values.
+Now, change `s.SeasonID` to `SeasonID` — you’ll get an **ambiguous column name** error.
+This happens because both tables contain a column with the same name, and SQL doesn’t know which one to use.
+
+---
+
+## 🧩 Task 7
+
+### 📝 Description
+
+Write an SQL statement that prints the `ContractIDs` and `Names` of actors.
+Try different **INNER JOIN** methods to join these tables.
+
+---
+
+### 🔹 Equi Join
+
+```sql
+SELECT ContractID, ActorName
+FROM Contract c, Actor a
+WHERE c.ActorID = a.ActorID;
+```
+
+---
+
+### 🔹 Join ON Clause
+
+```sql
 SELECT c.ContractID, a.ActorName
 FROM contracts c
 JOIN actors a ON c.ActorID = a.ActorID;
+```
 
--- Join using clause
+---
+
+### 🔹 Join USING Clause
+
+```sql
 SELECT c.ContractID, a.ActorName
 FROM contracts c
-JOIN actors a USING (ActorID); --  both columns must be named the same
+JOIN actors a USING (ActorID); -- both columns must be named the same
+```
 
-Natural join (Do not use this unless specified to do so)
+---
+
+### ⚠️ Natural Join (Do not use unless specified)
+
+```sql
 SELECT ContractID, ActorName
-FROM contracts NATURAL JOIN actors; --  
+FROM contracts NATURAL JOIN actors;
+```
 
--- Task 8:
+---
 
--- Using a JOIN clause, write an SQL statement that prints all contract details for episodes that aired in 2013.
-select c.*
-from Contract c join Episode e
-on c.SeasonID = e.SeasonID
-and c.EpisodeNo = e.EpisodeNo
+## 🧩 Task 8
+
+### 📝 Description
+
+Using a **JOIN** clause, write an SQL statement that prints all contract details for episodes that aired in **2013**.
+
+---
+
+### ✅ Query
+
+```sql
+SELECT c.*
+FROM Contract c 
+JOIN Episode e
+ON c.SeasonID = e.SeasonID
+AND c.EpisodeNo = e.EpisodeNo
 -- on (c.SeasonID, c.EpisodeNo) = (e.SeasonID, e.EpisodeNo)
-where year(AirDate) = 2013;
+WHERE YEAR(AirDate) = 2013;
+```
 
+---
 
---  Task 9:
--- Using a subquery, write an SQL statement that prints all contract details for episodes that aired in 2013.
+## 🧩 Task 9
 
-select *
-from Contract
-where (SeasonID, EpisodNo) in 
-			(select SeasonID, EpisodeNo
-            from Episode 
-            where year(AirDate) = 2013)
+### 📝 Description
 
--- Task 10:
--- Write an SQL statement that prints the contract ID, the actor's name, the airdate, and the season's name for all contracts issued, where the episode is aired after 2013, for actors with the string ‘li’ in their names.
-select ContractID, ActorName, AirDate, SeasonName
-from Season s join Episode e
-on s.SeasonID - e,SeasonID
-join Contract c
-on (c.SeasonID, c.EpisodeNo) = (e.EpisodeNo, e.SeasonID)
-join Actor a
-on c.ActorID = a.ActorID
-where year(AirDate) > 2013
-and ActorName like %li%;
+Using a **subquery**, write an SQL statement that prints all contract details for episodes that aired in **2013**.
 
--- Task 11:
+---
 
--- Write a query to print the Episode details (SeasonID, EpisodeNo and the number of days since the show has aired)
+### ✅ Query
 
-select SeasonID, EpisodeNo, datediff(curDate(), AirDate) as NumOfDays
-from Episode;
+```sql
+SELECT *
+FROM Contract
+WHERE (SeasonID, EpisodNo) IN 
+    (SELECT SeasonID, EpisodeNo
+     FROM Episode 
+     WHERE YEAR(AirDate) = 2013);
+```
 
--- Task 12:
+---
 
--- Write a query to print the names of actors who have never acted in any episodes.
+## 🧩 Task 10
 
-select ActorName
-from Actor a join Contract c
-on a.ActorID = c.ActorID
-where ContractID is null;
+### 📝 Description
+
+Write an SQL statement that prints the **Contract ID**, the **Actor's name**, the **AirDate**, and the **Season's name** for all contracts issued,
+where the episode aired after **2013**, for actors with the string `'li'` in their names.
+
+---
+
+### ⚠️ Provided Query
+
+```sql
+SELECT ContractID, ActorName, AirDate, SeasonName
+FROM Season s 
+JOIN Episode e
+ON s.SeasonID - e,SeasonID
+JOIN Contract c
+ON (c.SeasonID, c.EpisodeNo) = (e.EpisodeNo, e.SeasonID)
+JOIN Actor a
+ON c.ActorID = a.ActorID
+WHERE YEAR(AirDate) > 2013
+AND ActorName LIKE %li%;
+```
+
+---
+
+## 🧩 Task 11
+
+### 📝 Description
+
+Write a query to print the **Episode details** (`SeasonID`, `EpisodeNo`) and the **number of days since the show has aired**.
+
+---
+
+### ✅ Query
+
+```sql
+SELECT SeasonID, EpisodeNo, DATEDIFF(CURDATE(), AirDate) AS NumOfDays
+FROM Episode;
+```
+
+---
+
+## 🧩 Task 12
+
+### 📝 Description
+
+Write a query to print the **names of actors** who have **never acted in any episodes**.
+
+---
+
+### ⚠️ Provided Query
+
+```sql
+SELECT ActorName
+FROM Actor a 
+JOIN Contract c
+ON a.ActorID = c.ActorID
+WHERE ContractID IS NULL;
+```
+
+---
+
+## 🏁 End of Week 9 SQL Tasks
+
+```
+```
