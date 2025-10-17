@@ -1,4 +1,4 @@
-# 📘 Week 9 SQL Practice – Season, Episode, Actor, Contract Tables
+# 📘 Week 10 SQL Practice – Season, Episode, Actor, Contract Tables
 
 This Markdown file contains all SQL code for **Week 9 tasks** — from schema setup and data insertion to analytical queries using `GROUP BY`, `HAVING`, and joins.
 
