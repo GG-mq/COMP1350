@@ -49,4 +49,4 @@ Normalisation is performed **bottom-up**, meaning we start with one large unnorm
 
 ---
 
-📘 **Example:** See the attached Excel file [`Normalization_sample.xlsx`](Normalization_sample.xlsx) for a worked example.
+📘 **Example:** See the attached Excel file [`Normalization_sample.xlsx`](https://github.com/GG-mq/COMP1350/blob/main/Normalization_sample.xlsx) for a worked example.
