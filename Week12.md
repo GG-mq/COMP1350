@@ -1,8 +1,3 @@
-Here’s your explanation beautifully formatted in Markdown (`.md`) style — clear, structured, and ready to include in your notes or documentation:
-
----
-
-```md
 # 🧩 Database Normalisation (Bottom-Up Approach)
 
 **Normalisation** is the process of decomposing a large table into smaller, logically structured tables to reduce redundancy and improve data integrity.
@@ -55,8 +50,3 @@ Normalisation is performed **bottom-up**, meaning we start with one large unnorm
 ---
 
 📘 **Example:** See the attached Excel file [`Normalization_sample.xlsx`](Normalization_sample.xlsx) for a worked example.
-```
-
----
-
-Would you like me to **add a visual Mermaid diagram** showing the transition from UNF → 1NF → 2NF → 3NF?
